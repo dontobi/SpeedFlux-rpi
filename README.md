@@ -82,7 +82,7 @@ Be aware that this script will automatically accept the license and GDPR stateme
     -e 'SPEEDTEST_FAIL_INTERVAL'='5'  \
     -e 'SPEEDTEST_SERVER_ID'='6601' \
     -e 'LOG_TYPE'='info' \
-    breadlysm/speedtest-to-influxdb
+    dontobi/speedflux.rpi
     ```
 
 ## License
