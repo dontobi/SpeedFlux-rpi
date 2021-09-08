@@ -1,0 +1,14 @@
+image: dontobi/speedflux.rpi:${DOCKERTAG}
+manifests:
+  -
+    image: dontobi/speedflux.rpi:${VERSION}-arm32v7
+    platform:
+      architecture: arm
+      variant: v7
+      os: linux
+  -
+    image: dontobi/speedflux.rpi:${VERSION}-arm64v8
+    platform:
+      architecture: arm64
+      variant: v8
+      os: linux
