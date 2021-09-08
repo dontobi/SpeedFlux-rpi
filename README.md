@@ -110,5 +110,6 @@ SOFTWARE.
 
 ## Credits
 Inspired by [breadlysm](https://github.com/breadlysm/SpeedFlux) and [qlustor](https://github.com/qlustor/speedtest_ookla-to-influxdb)
+
 This script looks to have been originally written by https://github.com/aidengilmartin/speedtest-to-influxdb/blob/master/main.py and I forked it from https://github.com/breadlysm/speedtest-to-influxdb. They did the hard work, I've continued to modify it though to fit my needs.
 
