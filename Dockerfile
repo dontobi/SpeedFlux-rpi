@@ -1,5 +1,5 @@
 # Set base image
-FROM python:3.9-slim-bullseye
+FROM python:3.8-slim-buster
 
 # Set container label
 LABEL org.opencontainers.image.title="Speedflux Docker Image" \
@@ -22,7 +22,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
 
     # Install Speedtest
     && curl -L "https://packagecloud.io/ookla/speedtest-cli/gpgkey" 2> /dev/null | apt-key add - \
-    && echo "deb https://packagecloud.io/ookla/speedtest-cli/debian/ bullseye main" | tee /etc/apt/sources.list.d/ookla_speedtest-cli.list \
+    && echo "deb https://packagecloud.io/ookla/speedtest-cli/debian/ buster main" | tee /etc/apt/sources.list.d/ookla_speedtest-cli.list \
     && apt-get update && apt-get -q -y install speedtest \
 
     # Clean up
