@@ -3,9 +3,12 @@ FROM python:3.9-slim-bullseye
 
 # Set container label
 LABEL org.opencontainers.image.title="Speedflux Docker Image" \
-      org.opencontainers.image.description="Speedflux Docker Image for Raspberry Pi" \
-      org.opencontainers.image.authors="github@myhome.zone" \
+      org.opencontainers.image.description="Speedflux Docker Image" \
+      org.opencontainers.image.documentation="https://github.com/dontobi/SpeedFlux.rpi#readme" \
+      org.opencontainers.image.authors="Tobias S. <github@myhome.zone>" \
       org.opencontainers.image.url="https://github.com/dontobi/SpeedFlux.rpi" \
+      org.opencontainers.image.source="https://github.com/dontobi/SpeedFlux.rpi" \
+      org.opencontainers.image.base.name="docker.io/library/debian:bullseye-slim" \
       org.opencontainers.image.version="${VERSION}" \
       org.opencontainers.image.created="${DATI}"
 
