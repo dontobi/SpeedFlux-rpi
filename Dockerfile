@@ -21,12 +21,13 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
     apt-utils apt-transport-https curl dirmngr gnupg1 \
 
     # Install python packages
-    && pip3 install influxdb pythonping requests \
+    && pip3 install influxdb influxdb-client pythonping requests \
 
     # Install Speedtest
-    && curl -L "https://packagecloud.io/ookla/speedtest-cli/gpgkey" 2> /dev/null | apt-key add - \
-    && echo "deb https://packagecloud.io/ookla/speedtest-cli/debian/ bullseye main" | tee /etc/apt/sources.list.d/ookla_speedtest-cli.list \
+    && curl -s https://install.speedtest.net/app/cli/install.deb.sh --output /opt/install.deb.sh \
+    && bash /opt/install.deb.sh \
     && apt-get update && apt-get -q -y install speedtest \
+    && rm /opt/install.deb.sh \
 
     # Clean up
     && apt-get -q -y autoremove && apt-get -q -y clean \
