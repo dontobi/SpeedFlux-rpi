@@ -16,8 +16,8 @@ jobs:
           base-image: "library/python:3.9-slim-bullseye"
           image: "dontobi/speedflux.rpi:latest"
 
-      - if: steps.checkbaseimage.outputs.needs-updating == 'true'
-        name: Trigger build
+      - name: Trigger build
+        if: steps.checkbaseimage.outputs.needs-updating == 'true'
         uses: benc-uk/workflow-dispatch@v1.1
         with:
           workflow: Build Container (Stable)
