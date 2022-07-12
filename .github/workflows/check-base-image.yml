@@ -10,19 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Docker Base Image Checker
-        id: check
+        id: debian
         uses: mkumatag/container-image-updater-action@v1.0.5
         with:
-          base-image: 'library/python:3.9-slim-bullseye'
+          base-image: 'library/python:slim-bullseye'
           image: 'dontobi/speedflux.rpi:latest'
 
-      - name: Image update
-        run: echo "Image update required ${{ steps.check.outputs.needs-update }}"
-
       - name: Trigger build
-        if: steps.check.outputs.needs-update == 'true'
+        if: steps.debian.outputs.needs-update == 'true'
         uses: benc-uk/workflow-dispatch@v1.1
         with:
-          workflow: Build Container (Stable)
+          workflow: Build Container
           repo: dontobi/speedflux.rpi
           token: ${{ secrets.ACTIONS_PAT }}
