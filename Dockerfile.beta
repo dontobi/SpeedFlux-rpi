@@ -21,7 +21,7 @@ RUN apk update && apk upgrade \
     && apk add --no-cache curl gnupg speedtest-cli \
 
     # Install python packages
-    && pip install influxdb-client pythonping requests tcp-latency \
+    && pip install influxdb influxdb-client pythonping requests tcp-latency \
 
     # Clean up
     && rm -rf /etc/apk/cache
