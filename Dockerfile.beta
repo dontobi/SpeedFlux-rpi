@@ -15,10 +15,10 @@ LABEL org.opencontainers.image.title="Speedflux Docker Image" \
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Installation process
-RUN apk update && apk upgrade -y \
+RUN apk update && apk upgrade \
 
     # Install apk packages
-    && apk add --no-cache -y curl gnupg speedtest-cli \
+    && apk add --no-cache curl gnupg speedtest-cli \
 
     # Install python packages
     && pip install influxdb-client pythonping requests tcp-latency \
