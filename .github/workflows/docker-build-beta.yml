@@ -22,7 +22,7 @@ jobs:
           DATI="$(date --rfc-3339=seconds | sed 's/ /T/')"
           echo "version=$VERSION" >> $GITHUB_ENV
           echo "dati=$DATI" >> $GITHUB_ENV
-          sed -e "s/\${VERSION}/$VERSION/" -e "s/\${DATI}/$DATI/" ./Dockerfile.stable > ./Dockerfile
+          sed -e "s/\${VERSION}/$VERSION/" -e "s/\${DATI}/$DATI/" ./Dockerfile.beta > ./Dockerfile
 
       - name: Set up manifest tool
         run: |
