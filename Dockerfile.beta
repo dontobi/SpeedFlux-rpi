@@ -45,4 +45,4 @@ ENV NAMESPACE="None" \
 # Final setup & execution
 ADD . /app
 WORKDIR /app
-CMD ["python", "main.py"]
+CMD ["python", "beta.py"]
