@@ -21,7 +21,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
     apt-utils apt-transport-https curl dirmngr gnupg1 \
 
     # Install python packages
-    && pip3 install influxdb influxdb-client pythonping requests tcp-latency \
+    && pip3 install influxdb pythonping requests tcp-latency \
 
     # Install Speedtest
     && curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash \

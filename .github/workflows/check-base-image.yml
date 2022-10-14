@@ -9,17 +9,48 @@ jobs:
   check-and-trigger:
     runs-on: ubuntu-latest
     steps:
-      - name: Docker Base Image Checker
-        id: debian
+      - name: Checkout (main)
+        uses: actions/checkout@v3
+        with:
+          repository: 'dontobi/speedflux.rpi'
+          ref: 'main'
+
+      - name: Get and write version
+        id: version
+        run: |
+          STABLE="$(cat .github/parameters/.stable-version)"
+          BETA="$(cat .github/parameters/.beta-version)"
+          echo "stable-image=dontobi/speedflux.rpi:$STABLE" >> $GITHUB_ENV
+          echo "stable-base=library/python:slim-bullseye" >> $GITHUB_ENV
+          echo "beta-image=dontobi/speedflux.rpi:$BETA" >> $GITHUB_ENV
+          echo "beta-base=library/python:alpine" >> $GITHUB_ENV
+
+      - name: Docker Base Image Checker (Stable)
+        id: stable
         uses: mkumatag/container-image-updater-action@v1.0.5
         with:
-          base-image: 'library/python:slim-bullseye'
-          image: 'dontobi/speedflux.rpi:latest'
+          base-image: '${{ env.stable-base }}'
+          image: '${{ env.stable-image }}'
 
-      - name: Trigger build
-        if: steps.debian.outputs.needs-update == 'true'
+      - name: Docker Base Image Checker (Beta)
+        id: beta
+        uses: mkumatag/container-image-updater-action@v1.0.5
+        with:
+          base-image: '${{ env.beta-base }}'
+          image: '${{ env.beta-image }}'
+
+      - name: Trigger build (Stable)
+        if: steps.stable.outputs.needs-update == 'true'
         uses: benc-uk/workflow-dispatch@v1.1
         with:
-          workflow: Build Container
+          workflow: Build Container (Stable)
+          repo: dontobi/speedflux.rpi
+          token: ${{ secrets.ACTIONS_PAT }}
+
+      - name: Trigger build (Beta)
+        if: steps.beta.outputs.needs-update == 'true'
+        uses: benc-uk/workflow-dispatch@v1.1
+        with:
+          workflow: Build Container (Beta)
           repo: dontobi/speedflux.rpi
           token: ${{ secrets.ACTIONS_PAT }}
