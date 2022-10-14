@@ -18,39 +18,21 @@ jobs:
       - name: Get and write version
         id: version
         run: |
-          STABLE="$(cat .github/parameters/.stable-version)"
-          BETA="$(cat .github/parameters/.beta-version)"
-          echo "stable-image=dontobi/speedflux.rpi:$STABLE" >> $GITHUB_ENV
-          echo "stable-base=library/python:slim-bullseye" >> $GITHUB_ENV
-          echo "beta-image=dontobi/speedflux.rpi:$BETA" >> $GITHUB_ENV
-          echo "beta-base=library/python:alpine" >> $GITHUB_ENV
+          VERSION="$(cat .github/parameters/.version)"
+          echo "mage=dontobi/speedflux.rpi:$VERSION" >> $GITHUB_ENV
+          echo "base=library/python:slim-bullseye" >> $GITHUB_ENV
 
       - name: Docker Base Image Checker (Stable)
-        id: stable
+        id: checker
         uses: mkumatag/container-image-updater-action@v1.0.5
         with:
-          base-image: '${{ env.stable-base }}'
-          image: '${{ env.stable-image }}'
+          base-image: '${{ env.base }}'
+          image: '${{ env.image }}'
 
-      - name: Docker Base Image Checker (Beta)
-        id: beta
-        uses: mkumatag/container-image-updater-action@v1.0.5
-        with:
-          base-image: '${{ env.beta-base }}'
-          image: '${{ env.beta-image }}'
-
-      - name: Trigger build (Stable)
-        if: steps.stable.outputs.needs-update == 'true'
+      - name: Trigger build
+        if: steps.checker.outputs.needs-update == 'true'
         uses: benc-uk/workflow-dispatch@v1.1
         with:
-          workflow: Build Container (Stable)
-          repo: dontobi/speedflux.rpi
-          token: ${{ secrets.ACTIONS_PAT }}
-
-      - name: Trigger build (Beta)
-        if: steps.beta.outputs.needs-update == 'true'
-        uses: benc-uk/workflow-dispatch@v1.1
-        with:
-          workflow: Build Container (Beta)
+          workflow: Build Container
           repo: dontobi/speedflux.rpi
           token: ${{ secrets.ACTIONS_PAT }}

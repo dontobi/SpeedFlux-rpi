@@ -29,8 +29,9 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
     && apt-get update && apt-get -q -y install --no-install-recommends speedtest \
 
     # Clean up
-    && apt-get -q -y autoremove && apt-get -q -y clean \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+    && apt-get autoclean -y && apt-get autoremove && apt-get clean \
+    && rm -rf /tmp/* /var/tmp/* /root/.cache/* /var/lib/apt/lists/*
 
 # Setting up ENVs
 ENV NAMESPACE="None" \
@@ -48,6 +49,6 @@ ENV NAMESPACE="None" \
     LOG_TYPE="info"
 
 # Final setup & execution
-ADD . /app
+ADD main.py /app/main.py
 WORKDIR /app
 CMD ["python", "main.py"]
