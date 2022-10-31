@@ -31,7 +31,7 @@ jobs:
 
       - name: Trigger build
         if: steps.checker.outputs.needs-update == 'true'
-        uses: benc-uk/workflow-dispatch@v1.1
+        uses: benc-uk/workflow-dispatch@v1.2
         with:
           workflow: Build Container
           repo: dontobi/speedflux.rpi
