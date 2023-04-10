@@ -8,24 +8,24 @@ from influxdb import InfluxDBClient
 from multiprocessing import Process
 
 # InfluxDB Settings
-NAMESPACE = os.getenv('NAMESPACE', 'None')
-DB_ADDRESS = os.getenv('INFLUX_DB_ADDRESS', 'influxdb')
-DB_PORT = int(os.getenv('INFLUX_DB_PORT', '8086'))
-DB_USER = os.getenv('INFLUX_DB_USER', '')
-DB_PASSWORD = os.getenv('INFLUX_DB_PASSWORD', '')
-DB_DATABASE = os.getenv('INFLUX_DB_DATABASE', 'speedtests')
-DB_TAGS = os.getenv('INFLUX_DB_TAGS', None)
-PING_TARGETS = os.getenv('PING_TARGETS', '1.1.1.1, 8.8.8.8')
+NAMESPACE = os.environ.get('NAMESPACE', 'None')
+DB_ADDRESS = os.environ.get('INFLUX_DB_ADDRESS', 'influxdb')
+DB_PORT = int(os.environ.get('INFLUX_DB_PORT', '8086'))
+DB_USER = os.environ.get('INFLUX_DB_USER', '')
+DB_PASSWORD = os.environ.get('INFLUX_DB_PASSWORD', '')
+DB_DATABASE = os.environ.get('INFLUX_DB_DATABASE', 'speedtests')
+DB_TAGS = os.environ.get('INFLUX_DB_TAGS', None)
+PING_TARGETS = os.environ.get('PING_TARGETS', '1.1.1.1, 8.8.8.8')
 
 # Speedtest Settings
 # Time between tests (in minutes, converts to seconds).
-TEST_INTERVAL = int(os.getenv('SPEEDTEST_INTERVAL', '5')) * 60
+TEST_INTERVAL = float(os.environ.get('SPEEDTEST_INTERVAL', '5')) * 60
 # Time before retrying a failed Speedtest (in minutes, converts to seconds).
-TEST_FAIL_INTERVAL = int(os.getenv('SPEEDTEST_FAIL_INTERVAL', '5')) * 60
+TEST_FAIL_INTERVAL = float(os.environ.get('SPEEDTEST_FAIL_INTERVAL', '5')) * 60
 # Specific server ID
-SERVER_ID = os.getenv('SPEEDTEST_SERVER_ID', '')
+SERVER_ID = os.environ.get('SPEEDTEST_SERVER_ID', '')
 # Time between ping tests (in seconds).
-PING_INTERVAL = int(os.getenv('PING_INTERVAL', '5'))
+PING_INTERVAL = float(os.environ.get('PING_INTERVAL', '5')) * 60
 
 influxdb_client = InfluxDBClient(
     DB_ADDRESS, DB_PORT, DB_USER, DB_PASSWORD, None)

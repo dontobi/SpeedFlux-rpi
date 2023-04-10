@@ -14,7 +14,7 @@ LABEL org.opencontainers.image.title="Speedflux Docker Image" \
 
 # Installation process
 RUN apk -U --no-cache add speedtest-cli && rm -rf /etc/apk/cache \
-    && pip3 install influxdb pythonping requests tcp-latency \
+    && pip3 install aioinflux pythonping requests tcp-latency \
     && rm -rf /etc/apk/cache/* /tmp/* /var/tmp/* /root/.cache/* /var/lib/apt/lists/*
 
 # Setting up ENVs
@@ -33,6 +33,6 @@ ENV NAMESPACE="None" \
     LOG_TYPE="info"
 
 # Final setup & execution
-ADD main.py /app/main.py
+ADD beta.py /app/main.py
 WORKDIR /app
 CMD ["python", "main.py"]
