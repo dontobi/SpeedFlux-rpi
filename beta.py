@@ -158,11 +158,11 @@ def format_for_influx(data):
 def speedtest():
     if not SERVER_ID:
         speedtest = subprocess.run(
-        ["speedtest", "--accept-license", "--accept-gdpr", "-f", "json"], capture_output=True)
+        ["speedtest", "--json"], capture_output=True)
         print("Automatic server choice")
     else:
         speedtest = subprocess.run(
-        ["speedtest", "--accept-license", "--accept-gdpr", "-f", "json", "--server-id=" + SERVER_ID], capture_output=True)
+        ["speedtest", "--json", "--server " + SERVER_ID], capture_output=True)
         print("Manual server choice : ID = " + SERVER_ID)
 
     if speedtest.returncode == 0:  # Speedtest was successful.
