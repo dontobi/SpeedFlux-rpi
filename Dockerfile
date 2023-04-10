@@ -17,7 +17,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Installation process
 RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends \
     apt-utils apt-transport-https curl dirmngr gnupg1 \
-    && pip3 install influxdb pythonping requests tcp-latency \
+    && pip3 install influxdb pythonping requests \
     && curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8E61C2AB9A6D1557 \
     && apt-get update && apt-get -q -y install --no-install-recommends speedtest \
