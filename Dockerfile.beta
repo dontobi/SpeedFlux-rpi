@@ -33,6 +33,6 @@ ENV NAMESPACE="None" \
     LOG_TYPE="info"
 
 # Final setup & execution
-ADD main.py /app/main.py
+ADD beta.py /app/beta.py
 WORKDIR /app
-CMD ["python", "main.py"]
+CMD ["python", "beta.py"]
