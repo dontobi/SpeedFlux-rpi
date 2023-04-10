@@ -14,9 +14,9 @@ DB_TAGS = os.environ.get('INFLUX_DB_TAGS')
 
 # Speedtest Settings
 # Time between tests (in minutes, converts to seconds).
-TEST_INTERVAL = int(os.environ.get('SPEEDTEST_INTERVAL')) * 60
+TEST_INTERVAL = float(os.environ.get('SPEEDTEST_INTERVAL')) * 60
 # Time before retrying a failed Speedtest (in minutes, converts to seconds).
-TEST_FAIL_INTERVAL = int(os.environ.get('SPEEDTEST_FAIL_INTERVAL')) * 60
+TEST_FAIL_INTERVAL = float(os.environ.get('SPEEDTEST_FAIL_INTERVAL')) * 60
 
 influxdb_client = InfluxDBClient(
     DB_ADDRESS, DB_PORT, DB_USER, DB_PASSWORD, None
