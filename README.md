@@ -91,7 +91,7 @@ Be aware that this script will automatically accept the license and GDPR stateme
 ## License
 MIT License
 
-Copyright (c) 2022 [Tobias 'dontobi' Schug]
+Copyright (c) 2022-2023 [Tobias 'dontobi' Schug]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
