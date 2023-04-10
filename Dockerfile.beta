@@ -14,7 +14,6 @@ LABEL org.opencontainers.image.title="Speedflux Docker Image" \
 
 # Installation process
 RUN apk -U --no-cache add speedtest-cli && rm -rf /etc/apk/cache \
-    && python -m pip3 install --upgrade pip3 \
     && pip3 install influxdb pythonping requests tcp-latency \
     && rm -rf /etc/apk/cache/* /tmp/* /var/tmp/* /root/.cache/* /var/lib/apt/lists/*
 
