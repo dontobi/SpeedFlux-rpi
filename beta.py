@@ -2,10 +2,11 @@ import time
 import json
 import subprocess
 import os
-from aioinflux import InfluxDBClient
+from influxdb import InfluxDBClient
 
 # InfluxDB Settings
 DB_ADDRESS = os.environ.get('INFLUX_DB_ADDRESS')
+DB_PORT = int(os.environ.get('INFLUX_DB_PORT'))
 DB_USER = os.environ.get('INFLUX_DB_USER')
 DB_PASSWORD = os.environ.get('INFLUX_DB_PASSWORD')
 DB_DATABASE = os.environ.get('INFLUX_DB_DATABASE')
@@ -13,15 +14,24 @@ DB_TAGS = os.environ.get('INFLUX_DB_TAGS')
 
 # Speedtest Settings
 # Time between tests (in minutes, converts to seconds).
-TEST_INTERVAL = float(os.environ.get('SPEEDTEST_INTERVAL')) * 60
-# Time to wait before first test (in minutes, converts to seconds).
-TEST_STAGGER = float(os.environ.get('SPEEDTEST_STAGGER', 0)) * 60
+TEST_INTERVAL = int(os.environ.get('SPEEDTEST_INTERVAL')) * 60
 # Time before retrying a failed Speedtest (in minutes, converts to seconds).
-TEST_FAIL_INTERVAL = float(os.environ.get('SPEEDTEST_FAIL_INTERVAL')) * 60
+TEST_FAIL_INTERVAL = int(os.environ.get('SPEEDTEST_FAIL_INTERVAL')) * 60
 
 influxdb_client = InfluxDBClient(
-    unix_socket=DB_ADDRESS, username=DB_USER, password=DB_PASSWORD, db=DB_DATABASE, mode='blocking'
+    DB_ADDRESS, DB_PORT, DB_USER, DB_PASSWORD, None
 )
+
+
+def init_db():
+    databases = influxdb_client.get_list_database()
+
+    if len(list(filter(lambda x: x['name'] == DB_DATABASE, databases))) == 0:
+        influxdb_client.create_database(
+            DB_DATABASE)  # Create if does not exist.
+    else:
+        # Switch to if does exist.
+        influxdb_client.switch_database(DB_DATABASE)
 
 
 def pkt_loss(data):
@@ -113,26 +123,22 @@ def format_for_influx(cliout):
 
 
 def main():
-    time.sleep(TEST_STAGGER)
+    init_db()  # Setup the database if it does not already exist.
+
     while (1):  # Run a Speedtest and send the results to influxDB indefinitely.
-        try:
-            speedtest = subprocess.run(
-                ["speedtest", "--accept-license", "--accept-gdpr", "-f", "json"], 
-                capture_output=True,
-                check=True
-            )
+        speedtest = subprocess.run(
+            ["speedtest", "--accept-license", "--accept-gdpr", "-f", "json"], capture_output=True)
+
+        if speedtest.returncode == 0:  # Speedtest was successful.
             data = format_for_influx(speedtest.stdout)
             print("Speedtest Successful:")
-            for datum in data:
-                if not influxdb_client.write(datum):
-                    print("Failed to write data to DB")
-                    break
-            print("Data written to DB successfully")
-            time.sleep(TEST_INTERVAL)
-        except subprocess.CalledProcessError as e:  # Speedtest failed.
+            if influxdb_client.write_points(data) == True:
+                print("Data written to DB successfully")
+                time.sleep(TEST_INTERVAL)
+        else:  # Speedtest failed.
             print("Speedtest Failed:")
-            print(e.stderr.decode('utf-8'))
-            print(e.stdout.decode('utf-8'))
+            print(speedtest.stderr)
+            print(speedtest.stdout)
             time.sleep(TEST_FAIL_INTERVAL)
 
 
