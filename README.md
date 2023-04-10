@@ -1,5 +1,8 @@
-
-
+[![Source](https://img.shields.io/badge/source-github-blue)](https://github.com/dontobi/SpeedFlux.rpi)
+[![Github Issues](https://img.shields.io/github/issues/dontobi/SpeedFlux.rpi)](https://github.com/dontobi/SpeedFlux.rpi/issues)
+[![Docker Image Size (tag)](https://img.shields.io/docker/image-size/dontobi/speedflux.rpi/latest)](https://hub.docker.com/repository/docker/dontobi/speedflux.rpi)
+[![Docker Pulls](https://img.shields.io/docker/pulls/dontobi/speedflux.rpi)](https://hub.docker.com/repository/docker/dontobi/speedflux.rpi)
+[![License](https://img.shields.io/github/license/dontobi/SpeedFlux.rpi)](https://github.com/dontobi/SpeedFlux.rpi/blob/main/LICENSE.md)
 
 # SpeedFlux <img src='https://user-images.githubusercontent.com/3665468/119735610-974a0500-be4a-11eb-9149-dd12ceee03df.png' width='75'>
 ---
@@ -88,7 +91,7 @@ Be aware that this script will automatically accept the license and GDPR stateme
 ## License
 MIT License
 
-Copyright (c) 2022 [Tobias 'dontobi' S.]
+Copyright (c) 2022 [Tobias 'dontobi' Schug]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
