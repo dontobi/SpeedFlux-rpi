@@ -28,7 +28,8 @@ SERVER_ID = os.environ.get('SPEEDTEST_SERVER_ID', '')
 PING_INTERVAL = float(os.environ.get('PING_INTERVAL', '5')) * 60
 
 influxdb_client = InfluxDBClient(
-    DB_ADDRESS, DB_PORT, DB_USER, DB_PASSWORD, None)
+    DB_ADDRESS, DB_PORT, DB_USER, DB_PASSWORD, None
+)
 
 
 def init_db():
