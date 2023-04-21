@@ -5,7 +5,7 @@ FROM python:slim-bullseye
 LABEL org.opencontainers.image.title="Speedflux Docker Image" \
       org.opencontainers.image.description="Speedflux Docker Image" \
       org.opencontainers.image.documentation="https://github.com/dontobi/SpeedFlux.rpi#readme" \
-      org.opencontainers.image.authors="Tobias S. <github@myhome.zone>" \
+      org.opencontainers.image.authors="Tobias Schug <github@myhome.zone>" \
       org.opencontainers.image.url="https://github.com/dontobi/SpeedFlux.rpi" \
       org.opencontainers.image.source="https://github.com/dontobi/SpeedFlux.rpi" \
       org.opencontainers.image.base.name="docker.io/library/python:slim-bullseye" \
