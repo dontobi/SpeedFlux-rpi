@@ -16,11 +16,19 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Installation process
 RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends \
+
+    # Install apt packages
     apt-utils apt-transport-https curl dirmngr gnupg1 \
-    && pip3 install influxdb pythonping requests \
+
+    # Install python packages
+    && pip3 install influxdb pythonping requests tcp-latency \
+
+    # Install Speedtest
     && curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8E61C2AB9A6D1557 \
     && apt-get update && apt-get -q -y install --no-install-recommends speedtest \
+
+    # Clean up
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
     && apt-get autoclean -y && apt-get autoremove && apt-get clean \
     && rm -rf /tmp/* /var/tmp/* /root/.cache/* /var/lib/apt/lists/*
